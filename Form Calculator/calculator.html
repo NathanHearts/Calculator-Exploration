@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <h1 id="content">
+        <script>
+            // Parse numbers and operation
+            const num1 = parseInt(prompt('Enter first number'))
+            const op = prompt('Enter a operation from +,-,*,/,^2,sqrt,%,+/-')
+            let result
+
+            // Parse 2 term expressions
+            if (['+','-','*','/'].includes(op)){
+                const num2 = parseInt(prompt('Enter second number'))
+                switch (op) {
+                    case '-':
+                        result = num1 - num2
+                        break
+                    case '*':
+                        result = num1 * num2
+                        break
+                    case '/':
+                        result = num1 / num2
+                        break
+                    default:
+                        result = num1 + num2
+                }
+            }
+            
+            // Parse 1 term
+            else {
+                switch (op) {
+                    case '^2':
+                        result = num1**2
+                        break
+                    case 'sqrt':
+                        result = Math.sqrt(num1)
+                        break
+                    case '%':
+                        result = num1 / 10
+                        break
+                    default:
+                        result = -1*num1
+                }
+            }
+    
+            // Display Content
+            document.getElementById('content').innerText = `Answer: ${result}`
+        </script>
+    </h1>
+</html>

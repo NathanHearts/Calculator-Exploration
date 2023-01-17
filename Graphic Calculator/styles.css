@@ -1,0 +1,39 @@
+@import url('https://fonts.cdnfonts.com/css/seven-segment');
+
+.calculator-container {
+    width: 20vw;
+    padding: 2vh 8vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+.grid-container {
+    height: 25vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr .85fr;
+}
+
+.grid-button {
+    font-size: 25px;
+}
+
+.grid-button-equals {
+    background-color: aquamarine;
+}
+
+.display {
+    height: 6vh;
+    text-align: right;
+    font-family: 'Seven Segment', sans-serif;
+    font-size: 65px;
+}
+
+.sub-display {
+    height: 4vh;
+    text-align: left;
+    font-size: 30px;
+}
