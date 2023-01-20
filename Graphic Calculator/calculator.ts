@@ -72,28 +72,22 @@ function evalExpr(display:string, subDisplay:string) : number {
     const y = Number(display)
 
     switch (op){
-        default: 
-            return x + y
-        case '-':
-            return x - y
-        case '*':
-            return x * y
-        case '/':
-            return x / y
+        case '+': return x + y
+        case '-': return x - y
+        case '*': return x * y
+        case '/': return x / y
+        default: return NaN
     }
 }
 
 function evalTerm(display:string, op:string) : number {
     const x = Number(display)
     switch (op) {
-        case '^2':
-            return x ** 2
-        case '√':
-            return Math.sqrt(x)
-        case '%':
-            return x / 100
-        default:
-            return -1*x
+        case '^2': return x ** 2
+        case '√': return Math.sqrt(x)
+        case '%': return x / 100
+        case '+/-': return -1*x
+        default: return NaN
     }
 }
 
