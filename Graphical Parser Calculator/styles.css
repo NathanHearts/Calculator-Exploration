@@ -12,10 +12,9 @@
 }
 
 .grid-container {
-    height: 25vw;
+    height: 35vw;
     display: grid;
-    grid-template-columns: .85fr 1fr 1fr 1fr .85fr;
-    grid-template-rows: .85 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr .85fr;
 }
 
 .grid-button {
@@ -27,7 +26,7 @@
 }
 
 .display {
-    height: 12vh;
+    height: 8vh;
     text-align: right;
     font-family: 'Seven Segment', sans-serif;
     font-size: 65px;
