@@ -1,5 +1,5 @@
 // Takes Array of button values and puts them on a grid
-function app(buttons:Array<string>){
+function graphicCalculator(buttons:Array<string>){
     const grid = document.getElementById('grid')
 
     // Generate Button Element
@@ -94,7 +94,7 @@ function evalTerm(display:string, op:string) : number {
 // Run Code
 if (typeof window !== 'undefined'){
     window.onload = () => {
-        app([
+        graphicCalculator([
             'C','^2','%','/',
             '7','8','9','*',
             '4','5','6','-',

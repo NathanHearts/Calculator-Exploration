@@ -1,7 +1,5 @@
-// import {parseEval} from './parserCalculator.mjs'
-
 // Takes Array of button values and puts them on a grid
-function app(buttons:Array<string>){
+function graphicParserCalculator(buttons:Array<string>){
     // Element Constants
     const grid = document.getElementById('grid')
     const display = document.getElementById('display') as HTMLInputElement
@@ -13,15 +11,19 @@ function app(buttons:Array<string>){
         btn.classList.add('grid-button')
 
         // Button Logic
-        if (button === '='){
-            btn.onclick = () => display.innerHTML = parseEval(display.innerHTML)
-            btn.classList.add('grid-button-equals')
-        }
-        else if (button === 'C'){
-            btn.onclick = () => display.innerHTML = ''
-        }
-        else {
-            btn.onclick = () => display.innerHTML += button
+        switch (button) {
+            case '=':
+                btn.onclick = () => display.innerHTML = parseEval(display.innerHTML)
+                btn.classList.add('grid-button-equals')
+                break
+            case 'C':
+                btn.onclick = () => display.innerHTML = ''
+                break
+            case '\u2190':
+                btn.onclick = () => display.innerHTML = display.innerHTML.slice(0,-1)
+                break
+            default: 
+                btn.onclick = () => display.innerHTML += button
         }
 
         grid?.appendChild(btn)
@@ -31,8 +33,8 @@ function app(buttons:Array<string>){
 // Run Code
 if (typeof window !== 'undefined'){
     window.onload = () => {
-        app([
-            'C','(',')','^',
+        graphicParserCalculator([
+            'C','(',')','\u2190',
             '7','8','9','/',
             '4','5','6','*',
             '1','2','3','-',
@@ -41,7 +43,7 @@ if (typeof window !== 'undefined'){
     }
 }
 
-const operators : ReadonlyArray<string> = ['+', '-', '*', '/','^','rad'] as const
+const operators : ReadonlyArray<string> = ['+', '-', '*', '/','\u00D7', '\u00F7'] as const
 type Operator = (typeof operators)[number]
 
 const lBrack : ReadonlyArray<string> = ['(','[','{'] as const
@@ -59,12 +61,9 @@ function checkPrec(op:Operator | string) : number {
         case '+':
         case '-':
             return 1
-        case '*':
-        case '/':
-            return 2
-        case '^':
-        case 'root':
-            return 3
+        case '*': case '\u00D7':
+        case '/': case '\u00F7':
+            return 2 
     }
 }
 
@@ -107,8 +106,9 @@ function toPostfix(infix:string) : string {
     const stack : Array<string> = []
     let postfix = ''
     infix.replace(/(\-|\+|\*|\/|\^|\(|\))/g, ' $1 ')
-        .replace('  ', ' ').split(' ').forEach(char => {
+        .replace(/\s\s+/g, ' ').replace(/^\s|\s$/g, '').split(' ').forEach(char => {
         // Cases where char is a bracket
+        console.log(char)
         if (lBrack.includes(char)){
             stack.push(char)
         }
@@ -140,10 +140,10 @@ function toPostfix(infix:string) : string {
 
     // Put remaining operators into equayion
     while (stack.length > 0){
-        if ((isOperator(stack.slice(-1)[0])) ?? false ) {
-            postfix += ' '
-        }
-        postfix += stack.pop()
+        // if ((isOperator(stack.slice(-1)[0])) ?? false ) {
+        //     postfix += ' '
+        // }
+        postfix += ' ' + stack.pop()
     }
 
     return postfix.slice(1)
@@ -153,8 +153,8 @@ function evalTerm(op:Operator, x:number, y:number) : number {
     switch (op){
         case '+': return x + y
         case '-': return x - y
-        case '*': return x * y
-        case '/': return x / y
+        case '*': case '\u00D7': return x * y
+        case '/': case '\u00F7': return x / y
         case '^': return x ** y
         case 'root': return Math.pow(y,1/x)
         default: return NaN
@@ -192,7 +192,4 @@ function parseEval(data:string) : string {
 /*
 Infix to Postfix:
 https://iq.opengenus.org/infix-to-postfix-expression-stack/
-
-Expression tree:
-https://www.baeldung.com/cs/postfix-expressions-and-expression-trees
 */
